@@ -51,8 +51,6 @@ public class Main {
 			e.printStackTrace();
 		}
 
-
-
 		Main.println("読み込み中...。");
 
 		File config = new File("config.json");
