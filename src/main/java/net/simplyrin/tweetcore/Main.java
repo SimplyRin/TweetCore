@@ -12,6 +12,7 @@ import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 import twitter4j.auth.AccessToken;
 
 /**
@@ -37,6 +38,21 @@ public class Main {
 	private static Twitter twitter;
 
 	public static void main(String[] args) {
+		Main.println("----------------------------------------------------------------");
+		Main.println("ソースコード: https://github.com/SimplyRin/TweetCore");
+		Main.println("ライセンス: GPLv3 (https://github.com/SimplyRin/TweetCore/blob/master/LICENSE.md)");
+		Main.println("----------------------------------------------------------------");
+
+		try {
+			Thread.sleep(500);
+			Main.println(" ");
+			Thread.sleep(500);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+
+
 		Main.println("読み込み中...。");
 
 		File config = new File("config.json");
@@ -59,6 +75,15 @@ public class Main {
 		twitter = TwitterFactory.getSingleton();
 		twitter.setOAuthConsumer(jsonLoader.getString("Consumer-Key"), jsonLoader.getString("Consumer-Secret"));
 		twitter.setOAuthAccessToken(new AccessToken(jsonLoader.getString("Access-Token"), jsonLoader.getString("Access-Token-Secret")));
+
+		try {
+			User user = twitter.verifyCredentials();
+
+			Main.println("ユーザー名: @" +  user.getScreenName());
+		} catch (TwitterException e) {
+			Main.failed(e);
+			return;
+		}
 
 		Main.println("読み込みが完了しました。");
 		Main.println("/help でコマンド一覧を確認できます。");
