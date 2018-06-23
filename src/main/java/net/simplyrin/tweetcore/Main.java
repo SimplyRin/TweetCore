@@ -45,7 +45,7 @@ public class Main {
 
 		try {
 			Thread.sleep(500);
-			Main.println(" ");
+			Main.println("");
 			Thread.sleep(500);
 		} catch (Exception e) {
 			e.printStackTrace();
