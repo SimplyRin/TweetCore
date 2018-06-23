@@ -98,11 +98,27 @@ public class Main {
 
 		if(args.length > 0) {
 			if(args[0].equalsIgnoreCase("/help")) {
+				Main.println("/acc : 設定しているアカウント情報を表示します。");
 				Main.println("/tweet <内容> : 入力した内容をツイートします。");
 				Main.println("/reply <ツイートID> <内容> : ツイートに返信します。");
 				Main.println("/reset : 初期化し、再設定を開始します。");
 				Main.println("/quit : プログラムを停止します。");
 				return;
+			}
+
+			if(args[0].equalsIgnoreCase("/acc")) {
+				try {
+					User user = twitter.verifyCredentials();
+					Main.println("ユーザー名: " + user.getName() + " (@" + user.getScreenName() + ")");
+					Main.println("ツイート: " + user.getStatusesCount());
+					Main.println("フォロー: " + user.getFriendsCount());
+					Main.println("フォロワー: " + user.getFollowersCount());
+					Main.println("いいね: " + user.getFavouritesCount());
+					return;
+				} catch (Exception e) {
+					Main.failed(e);
+					return;
+				}
 			}
 
 			if(args[0].equalsIgnoreCase("/tweet")) {
